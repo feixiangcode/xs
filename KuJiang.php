@@ -9,10 +9,14 @@ class KuJiang
                         </li>';
     public $content_temp = "";
     public $book_dir = "";
-    public function runList($list_url,$book)
+    public $sdt = "http://www.kujiang.com/book/";
+    public function runList($bookId,$book)
     {
         $this->content_temp = ROOTPATH . "/content_temp.html";
         $this->book_dir = $book;
+        $this->sdt = $this->sdt . $bookId . "/";
+        
+        $list_url = $this->sdt . "catalog";
         $content = file_get_contents($list_url);
         preg_match_all("/<ol class=\"zero unstyled kjlist clearfix\">([\s\S]*?)<\/ol>/i",$content,$list_matches);
         if(count($list_matches[1] > 0)) {
@@ -83,7 +87,6 @@ class KuJiang
             file_put_contents($this->book_dir . "/list.html",$list_content);
     }
 
-    public $sdt = "http://www.kujiang.com/book/";
     public function updateList($path,$bookId,$newItem)
     {
         $this->book_dir = $path;
