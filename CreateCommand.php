@@ -26,7 +26,8 @@ class CreateCommand
                 $webName = new KuJiang();
                 break;
             case '17k':
-                
+                include_once ROOTPATH .'/K17.php';
+                $webName = new K17();
                 break;
             default :
                 exit("not website");
